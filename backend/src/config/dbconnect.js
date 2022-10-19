@@ -3,7 +3,10 @@ import mongoose from 'mongoose'
 const connectDB = async () => {
   console.log(process.env.MONGO_URI)
   mongoose
-    .connect(process.env.MONGO_URI, { keepAlive: true, connectTimeoutMS: 3000 })
+    .connect(process.env.MONGO_URI, {
+      keepAlive: true,
+      connectTimeoutMS: 3000,
+    })
     .catch((error) => {
       console.log(`Initial connection to database failed: ${error}`)
     })
