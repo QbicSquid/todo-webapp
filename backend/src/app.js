@@ -1,6 +1,7 @@
 require('dotenv').config() // must be called as early as possible
 import express from 'express'
 import cors from 'cors'
+import { isCelebrateError } from 'celebrate'
 
 import connectDB from './config/dbconnect'
 import router from './routes/index.routes'
@@ -22,10 +23,22 @@ connectDB()
 
 // error responses
 app.use((err, req, res, next) => {
-  if (err.name == 'MongoServerError' && err.code === 11000) {
+  if (isCelebrateError(err)) {
+    for (const [key, value] of err.details.entries()) {
+      return makeResponse({
+        res,
+        status: 422,
+        message: value.details[0].message,
+      })
+    }
+  } else if (err.name == 'MongoServerError' && err.code === 11000) {
     // error response for duplicate unique keys when inserting to db
     const key = Object.keys(err.keyValue)[0]
-    return makeResponse({ res, status: 400, message: `The ${key} ${err.keyValue[key]} is already taken` })
+    return makeResponse({
+      res,
+      status: 400,
+      message: `The ${key} ${err.keyValue[key]} is already taken`,
+    })
   } else {
     // default error response
     return makeResponse({
