@@ -2,6 +2,7 @@ require('dotenv').config() // must be called as early as possible
 import express from 'express'
 import cors from 'cors'
 
+import connectDB from './config/dbconnect'
 import router from './routes/index.routes'
 
 const app = express()
@@ -15,12 +16,14 @@ app.get('/', (req, res) =>
 )
 app.use('/api', router)
 
+connectDB()
+
 app.use((err, req, res, next) => {
-    return makeResponse({
-        res,
-        status: 500,
-        message: 'Internal server error',
-    })
+  return makeResponse({
+    res,
+    status: 500,
+    message: 'Internal server error',
+  })
 })
 
 const port = process.env.PORT
