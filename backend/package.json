@@ -1,0 +1,23 @@
+{
+  "name": "simplydo-backend",
+  "version": "1.0.0",
+  "description": "Back End for the simple todo web application, SimplyDo.",
+  "main": "src/app.js",
+  "scripts": {
+    "dev": "nodemon --exec babel-node src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Shifan Mohamed",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.19.3",
+    "@babel/node": "^7.19.1",
+    "@babel/preset-env": "^7.19.4",
+    "dotenv": "^16.0.3",
+    "nodemon": "^2.0.20"
+  }
+}
