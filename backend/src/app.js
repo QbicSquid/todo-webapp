@@ -4,6 +4,7 @@ import cors from 'cors'
 
 import connectDB from './config/dbconnect'
 import router from './routes/index.routes'
+import makeResponse from './middleware/response'
 
 const app = express()
 
@@ -11,6 +12,7 @@ app.use(cors()) // set up cross origin requests
 app.use(express.json({ limit: '1mb' })) // parse json request bodies
 app.use(express.urlencoded({ extended: true })) // parse url parameters
 
+// routing
 app.get('/', (req, res) =>
   res.status(200).json({ message: 'SimplyDo Server Up and Running' })
 )
@@ -18,12 +20,20 @@ app.use('/api', router)
 
 connectDB()
 
+// error responses
 app.use((err, req, res, next) => {
-  return makeResponse({
-    res,
-    status: 500,
-    message: 'Internal server error',
-  })
+  if (err.name == 'MongoServerError' && err.code === 11000) {
+    // error response for duplicate unique keys when inserting to db
+    const key = Object.keys(err.keyValue)[0]
+    return makeResponse({ res, status: 400, message: `The ${key} ${err.keyValue[key]} is already taken` })
+  } else {
+    // default error response
+    return makeResponse({
+      res,
+      status: 500,
+      message: 'Internal server error',
+    })
+  }
 })
 
 const port = process.env.PORT
