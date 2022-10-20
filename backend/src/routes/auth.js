@@ -6,7 +6,7 @@ import { registerSchema } from '../validations/auth'
 
 const authRouter = express.Router()
 
-authRouter.get('/login', login)
-authRouter.post('/register', celebrate({ [Segments.BODY]: registerSchema }),register)
+authRouter.post('/login', celebrate({ [Segments.BODY]: registerSchema }), login)
+authRouter.post('/register', celebrate({ [Segments.BODY]: registerSchema }), register)
 
 export default authRouter

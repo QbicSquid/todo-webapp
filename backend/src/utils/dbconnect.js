@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
 
 const connectDB = async () => {
-  console.log(process.env.MONGO_URI)
   mongoose
     .connect(process.env.MONGO_URI, {
       keepAlive: true,

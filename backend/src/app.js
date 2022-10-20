@@ -3,7 +3,7 @@ import express from 'express'
 import cors from 'cors'
 import { isCelebrateError } from 'celebrate'
 
-import connectDB from './config/dbconnect'
+import connectDB from './utils/dbconnect'
 import router from './routes/index.routes'
 import makeResponse from './middleware/response'
 
