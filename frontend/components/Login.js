@@ -1,8 +1,21 @@
 import { useState } from 'react'
 import { FormLabel, FormText, FormPassword, FormButton } from './common/form'
+import { login } from '../requests/auth'
 
 const Login = () => {
-  const { onLogin, setOnLogin } = useState(true)
+  const [ onLogin, setOnLogin ] = useState(true)
+
+  const handleLogin = async (event) => {
+    event.preventDefault()
+    const res = await login({
+      username: document.getElementById('uname').value,
+      password: document.getElementById('pass').value,
+    })
+    console.log(res.data.user.username)
+  }
+
+  const handleRegister = async (event) => {
+  }
 
   return (
     <div className="container pt-32">
@@ -10,17 +23,17 @@ const Login = () => {
         <div className="w-full bg-teal-500 rounded-3xl pt-2 px-1">
           <img src="logo.svg" alt="logo" className="mx-auto" />
           <div className="bg-white w-full px-2 rounded">
-            <form action="" className="flex-wrap">
+            <form onSubmit={onLogin ? handleLogin : handleRegister} className="flex-wrap">
               <FormLabel className="mt-2">Username</FormLabel>
-              <FormText name="username" />
+              <FormText id="uname" name="username" />
               <FormLabel className="mt-6">Password</FormLabel>
-              <FormPassword name="password" className="mb-6" />
-              <div className="pb-4 w-full overflow-auto">
+              <FormPassword id="pass" name="password" className="" />
+              <div className="pb-4 pt-4 w-full overflow-auto">
                 <FormButton className="float-right">Login</FormButton>
               </div>
             </form>
           </div>
-          <div className='justify-center flex'>
+          <div className="justify-center flex">
             <p className="text-white fontf1">Don't have an account?</p>
           </div>
         </div>

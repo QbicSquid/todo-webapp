@@ -20,7 +20,7 @@ export const FormPassword = ({ children, ...props }) => {
 }
 
 export const FormButton = ({ children, ...props }) => {
-  const className = 'bg-teal-500 rounded-md text-white p-2 fontf1 text-xl'
+  const className = 'bg-teal-500 rounded-md text-white p-2 fontf1 text-xl hover:scale-105 active:bg-teal-700 mr-5'
   props.className += ' ' + className
 
   return (<button {...props}>{children}</button>)
