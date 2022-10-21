@@ -17,7 +17,7 @@ export const apiRequest = async (request) => {
     }))
     .catch((error) => {
       const message = error.response.data.message
-      toast(message)
+      toast.error(message)
       return {
         success: false,
         message: message,
