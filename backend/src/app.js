@@ -23,7 +23,14 @@ connectDB()
 
 // error responses
 app.use((err, req, res, next) => {
-  if (isCelebrateError(err)) {
+  if (err.expose) {
+    // for exposable (mainly bad request) erros
+    return makeResponse({ res, status: err.status, message: err.message })
+  } else if (err.name == 'TokenExpiredError') {
+    // JWT token expired
+    return makeResponse({ res, status: 401, message: 'Access token expired' })
+  }else if (isCelebrateError(err)) {
+    // validation errors
     for (const [key, value] of err.details.entries()) {
       return makeResponse({
         res,
@@ -32,7 +39,7 @@ app.use((err, req, res, next) => {
       })
     }
   } else if (err.name == 'MongoServerError' && err.code === 11000) {
-    // error response for duplicate unique keys when inserting to db
+    // for duplicate unique keys when inserting to db
     const key = Object.keys(err.keyValue)[0]
     return makeResponse({
       res,
@@ -41,11 +48,7 @@ app.use((err, req, res, next) => {
     })
   } else {
     // default error response
-    return makeResponse({
-      res,
-      status: 500,
-      message: 'Internal server error',
-    })
+    return makeResponse({ res, status: 500, message: 'Internal server error' })
   }
 })
 
