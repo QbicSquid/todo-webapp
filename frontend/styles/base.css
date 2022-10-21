@@ -1,7 +1,15 @@
-body,
-.container {
+body {
+  background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), url('../public/background.png');
+  background-size: 330px;
+}
+
+html, body, #__next, .container {
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
+}
+
+.fontf1 {
+  font-family: "Roboto", "Arial", sans-serif;
 }
