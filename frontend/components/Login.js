@@ -12,7 +12,6 @@ const Login = () => {
       username: document.getElementById('uname').value,
       password: document.getElementById('pass').value,
     })
-    console.log(res.data.user.username)
   }
 
   const handleRegister = async (event) => {
@@ -25,7 +24,7 @@ const Login = () => {
         <div className="w-full bg-teal-500 rounded-3xl pt-2 px-1">
           <img src="logo.svg" alt="logo" className="mx-auto" />
           <div className="bg-white w-full px-2 rounded">
-            <form onSubmit={onLogin ? handleLogin : handleRegister} className="flex-wrap">
+            <form onSubmit={onLogin ? handleLogin : handleRegister} className="flex-wrap" method="POST">
               <FormLabel className="mt-2">Username</FormLabel>
               <FormText id="uname" name="username" />
               <FormLabel className="mt-6">Password</FormLabel>

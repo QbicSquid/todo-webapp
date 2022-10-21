@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 export const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BE_DOMAIN,
@@ -16,7 +17,7 @@ export const apiRequest = async (request) => {
     }))
     .catch((error) => {
       const message = error.response.data.message
-      alert(message)
+      toast(message)
       return {
         success: false,
         message: message,
