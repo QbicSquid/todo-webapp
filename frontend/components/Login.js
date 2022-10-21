@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { FormLabel, FormText, FormPassword, FormButton } from './common/form'
+import { LinkButton } from './common/buttons'
 import { login } from '../requests/auth'
 
 const Login = () => {
@@ -15,6 +16,7 @@ const Login = () => {
   }
 
   const handleRegister = async (event) => {
+    event.preventDefault()
   }
 
   return (
@@ -28,13 +30,18 @@ const Login = () => {
               <FormText id="uname" name="username" />
               <FormLabel className="mt-6">Password</FormLabel>
               <FormPassword id="pass" name="password" className="" />
+              <div className={`${onLogin ? 'scale-0 h-0' : 'scale-1'} overflow-hidden duration-200 ease-in-out`}>
+                <FormLabel className="mt-6">Confirm Password</FormLabel>
+                <FormPassword id="conf  pass" name="password" className="" />
+              </div>
               <div className="pb-4 pt-4 w-full overflow-auto">
-                <FormButton className="float-right">Login</FormButton>
+                <FormButton className="float-right">{onLogin ? 'Login' : 'Register'}</FormButton>
               </div>
             </form>
           </div>
-          <div className="justify-center flex">
-            <p className="text-white fontf1">Don't have an account?</p>
+          <div className="justify-center flex ">
+            <p className="text-white fontf1 mr-2 my-auto">{onLogin ? 'Already': 'Don\'t'} have an account?</p>
+            <LinkButton onClick={() => setOnLogin(!onLogin)} className="my-auto">{onLogin ? 'Register': 'Login'}</LinkButton>
           </div>
         </div>
       </div>
