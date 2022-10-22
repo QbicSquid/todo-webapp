@@ -1,6 +1,6 @@
 import asyncHandler from '../middleware/async'
 import makeResponse from '../middleware/response'
-import { createTask, readTask, deleteTask, updateTask } from '../database/task'
+import { createTask, readTask, deleteTask, updateTask, readTasks } from '../database/task'
 
 export const newTask = asyncHandler(async (req, res) => {
   const taskToCreate = req.body
@@ -13,6 +13,11 @@ export const getTask = asyncHandler(async (req, res) => {
   const task = await readTask(req.params.id)
   if (!task) makeResponse({ res, status: 404, message: 'Invalid task ID' })
   else makeResponse({ res, status: 200, message: 'Task fetched successfully', data: task })
+})
+
+export const getTasks = asyncHandler(async (req, res) => {
+  const tasks = await readTasks()
+  makeResponse({ res, status: 200, message: 'Tasks fetched successfully', data: tasks })
 })
 
 export const removeTask = asyncHandler(async (req, res) => {

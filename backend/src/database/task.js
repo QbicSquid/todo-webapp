@@ -10,6 +10,10 @@ export const readTask = async (taskId) => {
   return await Task.findById(taskId, { lean: true })
 }
 
+export const readTasks = async () => {
+  return await Task.find({}).lean()
+}
+
 export const deleteTask = async (taskId) => {
   return await Task.findByIdAndDelete(taskId)
 }
