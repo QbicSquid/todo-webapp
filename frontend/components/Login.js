@@ -23,7 +23,12 @@ const Login = () => {
 
     lStorage.setItem('session', JSON.stringify(res.data))
 
-    if (res.success) Router.push('/tasks')
+    if (res.success) Router.push({
+      pathname: '/tasks', 
+      query: {
+        session: JSON.stringify(res.data)
+      }
+    })
   }
 
   const handleRegister = async (event) => {
@@ -43,7 +48,12 @@ const Login = () => {
 
     lStorage.setItem('session', JSON.stringify(res.data))
     
-    if (res.success) Router.push('/tasks')
+    if (res.success) Router.push({
+      pathname: '/tasks', 
+      query: {
+        session: JSON.stringify(res.data)
+      }
+    })
   }
 
   return (
