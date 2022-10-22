@@ -2,13 +2,9 @@ import mongoose from 'mongoose'
 
 const TaskSchema = mongoose.Schema(
   {
-    task: {
-      type: String,
-      required: true,
-    },
     description: {
       type: String,
-      required: false,
+      required: true,
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -18,7 +14,7 @@ const TaskSchema = mongoose.Schema(
     done: {
       type: Boolean,
       required: true,
-      default: true,
+      default: false,
     },
   },
   {

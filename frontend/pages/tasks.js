@@ -1,6 +1,7 @@
+import Tasks from "../components/Tasks"
 
 const tasksPage = () => {
-  return <p>hi</p>
+  return <Tasks />
 }
 
 export default tasksPage

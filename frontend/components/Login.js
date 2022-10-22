@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
 import Router from 'next/router'
 
@@ -8,16 +8,20 @@ import { login, register } from '../requests/auth'
 
 const Login = () => {
   const [ onLogin, setOnLogin ] = useState(true)
+  const [ lStorage, setLStorage ]  = useState(null)
+
+  useEffect(() => setLStorage(localStorage  ), [])
 
   const handleLogin = async (event) => {
     // TOD: Add frontend validations
     event.preventDefault()
+
     const res = await login({
       username: document.getElementById('uname').value,
       password: document.getElementById('pass').value,
     })
 
-    // TODO: set data on local storage
+    lStorage.setItem('session', JSON.stringify(res.data))
 
     if (res.success) Router.push('/tasks')
   }
@@ -25,7 +29,7 @@ const Login = () => {
   const handleRegister = async (event) => {
     // TOD: Add frontend validations
     event.preventDefault()
-    
+
     const username = document.getElementById('uname').value
     const password = document.getElementById('pass').value
     const confirm = document.getElementById('confpass').value
@@ -36,17 +40,18 @@ const Login = () => {
     }
 
     const res = await register({ username, password })
-    // TODO: set data on local storage
+
+    lStorage.setItem('session', JSON.stringify(res.data))
     
     if (res.success) Router.push('/tasks')
   }
 
   return (
     <div className="container pt-32">
-      <div className="w-1/2 bg-white mx-auto rounded-3xl p-2">
-        <div className="w-full bg-teal-500 rounded-3xl pt-2 px-1">
+      <div className="w-1/2 p-2 mx-auto bg-white rounded-3xl">
+        <div className="w-full px-1 pt-2 bg-teal-500 rounded-3xl">
           <img src="logo.svg" alt="logo" className="mx-auto" />
-          <div className="bg-white w-full px-2 rounded">
+          <div className="w-full px-2 bg-white rounded">
             <form onSubmit={onLogin ? handleLogin : handleRegister} className="flex-wrap" method="POST">
               <FormLabel className="mt-2">Username</FormLabel>
               <FormText id="uname" name="username" />
@@ -56,13 +61,13 @@ const Login = () => {
                 <FormLabel className="mt-6">Confirm Password</FormLabel>
                 <FormPassword id="confpass" name="password" className="" />
               </div>
-              <div className="pb-4 pt-4 w-full overflow-auto">
+              <div className="w-full pt-4 pb-4 overflow-auto">
                 <FormButton className="float-right">{onLogin ? 'Login' : 'Register'}</FormButton>
               </div>
             </form>
           </div>
-          <div className="justify-center flex ">
-            <p className="text-white fontf1 mr-2 my-auto">{onLogin ? 'Already': 'Don\'t'} have an account?</p>
+          <div className="flex justify-center ">
+            <p className="my-auto mr-2 text-white fontf1">{onLogin ? 'Already': 'Don\'t'} have an account?</p>
             <LinkButton onClick={() => setOnLogin(!onLogin)} className="my-auto">{onLogin ? 'Register': 'Login'}</LinkButton>
           </div>
         </div>

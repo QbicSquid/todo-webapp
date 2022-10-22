@@ -13,3 +13,7 @@ html, body, #__next, .container {
 .fontf1 {
   font-family: "Roboto", "Arial", sans-serif;
 }
+
+.fontf2 {
+  font-family: 'Brush Script MT', cursive;
+}

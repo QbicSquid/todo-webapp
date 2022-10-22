@@ -1,8 +1,7 @@
 import { Joi } from 'celebrate'
 
 export const newTaskSchema = {
-  task: Joi.string().required(),
-  description: Joi.string().optional(),
+  description: Joi.string().required(),
 }
 
 export const getTaskSchema = {
