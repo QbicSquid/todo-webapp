@@ -12,14 +12,21 @@ const Login = () => {
 
   useEffect(() => setLStorage(localStorage  ), [])
 
-  const handleLogin = async (event) => {
-    // TOD: Add frontend validations
-    event.preventDefault()
+  const isValidCred = (cred) => {
+    if (cred.length >= 6 && cred.length <= 12) return true
+    toast.error("Username and Password length must be between 6 to 12 characters")
+    return false
+  }
 
-    const res = await login({
-      username: document.getElementById('uname').value,
-      password: document.getElementById('pass').value,
-    })
+  const handleLogin = async (event) => {
+    event.preventDefault()
+    
+    const username = document.getElementById('uname').value
+    const password = document.getElementById('pass').value
+
+    if (!(isValidCred(username) && isValidCred(password))) return
+
+    const res = await login({ username, password })
 
     lStorage.setItem('session', JSON.stringify(res.data))
 
@@ -32,12 +39,13 @@ const Login = () => {
   }
 
   const handleRegister = async (event) => {
-    // TOD: Add frontend validations
     event.preventDefault()
 
     const username = document.getElementById('uname').value
     const password = document.getElementById('pass').value
     const confirm = document.getElementById('confpass').value
+
+    if (!(isValidCred(username) && isValidCred(password))) return
 
     if (password != confirm) {
       toast.error('Passwords does not match')

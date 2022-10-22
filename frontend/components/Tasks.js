@@ -1,22 +1,20 @@
 import { useState, useEffect } from 'react'
 import Router from 'next/router'
 
-import { setTaskStatus, newTask } from '../requests/tasks'
+import { setTaskStatus, newTask, deleteTask } from '../requests/tasks'
 import { FormText, FormButton } from './common/form'
-import tasksPage from '../pages/tasks'
 
 const Tasks = ({ children, ...props }) => {
   const [lStorage, setLStorage] = useState(null)
   const [session, setSession] = useState(null)
-  const [showNewTodo, setShowNewTodo] = useState(false)
   useEffect(() => setLStorage(localStorage), [])
   useEffect(() => setSession(JSON.parse(localStorage.getItem('session'))), [])
 
   useEffect(() => {
-    props.data.forEach(task => {
+    props.data.forEach((task) => {
       const img = document.getElementById('IMG' + task._id)
-      if (!(task.done)) img.toggleAttribute('hidden')
-    });
+      if (!task.done) img.toggleAttribute('hidden')
+    })
   }, [])
 
   const logout = (even) => {
@@ -34,12 +32,28 @@ const Tasks = ({ children, ...props }) => {
 
   const save = async (event) => {
     const input = document.getElementById('newtodoinput')
-    const res = await newTask({ token: session.access_token, description: input.value })
+    const res = await newTask({
+      token: session.access_token,
+      description: input.value,
+    })
+    
+    if (res.success) Router.reload()
+  }
+
+  const remove = async (event) => {
+    const img = document.getElementById(event.target.id)
+    console.log("hi")
+    const res = await deleteTask({
+      token: session.access_token,
+      taskId: img.id.substring(3),
+    })
+    
     if (res.success) Router.reload()
   }
 
   const done = (event) => {
     var img = document.getElementById(event.target.id)
+    
     if (event.target.id[0] == 'C') {
       img = img.firstChild
       setTaskStatus({
@@ -53,12 +67,13 @@ const Tasks = ({ children, ...props }) => {
         taskId: img.id.substring(3),
         status: false,
       })
+    
     img.toggleAttribute('hidden')
   }
 
   return (
     <div className="container py-4">
-      <div className="w-11/12 h-full p-2 mx-auto bg-white rounded-3xl">
+      <div className="w-11/12 h-full p-2 mx-auto overflow-scroll bg-white rounded-3xl">
         <div className="flex justify-between w-full px-1 pt-2 bg-teal-500 rounded-full">
           <div className="w-80">
             <div className="hidden pt-1 pl-5 text-3xl text-white md:inline-block">
@@ -144,6 +159,8 @@ const Tasks = ({ children, ...props }) => {
                     src="trash.svg"
                     alt="trash can"
                     className="duration-150 w-9 h-9 hover:scale-105 hover:cursor-pointer active:scale-95"
+                    id={'TRS' + task._id}
+                    onClick={remove}
                   />
                 </div>
               </div>

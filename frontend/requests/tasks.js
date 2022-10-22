@@ -23,3 +23,11 @@ export const newTask = async ({ token, description }) => {
     })
   )
 }
+
+export const deleteTask = async ({ token, taskId }) => {
+    return await apiRequest(() =>
+      axiosInstance.delete('/api/task/' + taskId, {
+        headers: { Authorization: 'Bearer ' + token },
+      })
+    )
+  }
