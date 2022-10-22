@@ -15,3 +15,11 @@ export const setTaskStatus = async ({ token, taskId, status }) => {
     })
   )
 }
+
+export const newTask = async ({ token, description }) => {
+  return await apiRequest(() =>
+    axiosInstance.post('/api/task/', { description }, {
+      headers: { Authorization: 'Bearer ' + token },
+    })
+  )
+}

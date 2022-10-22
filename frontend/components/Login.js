@@ -64,15 +64,15 @@ const Login = () => {
           <div className="w-full px-2 bg-white rounded">
             <form onSubmit={onLogin ? handleLogin : handleRegister} className="flex-wrap" method="POST">
               <FormLabel className="mt-2">Username</FormLabel>
-              <FormText id="uname" name="username" />
+              <FormText id="uname" name="username" className="w-full"/>
               <FormLabel className="mt-6">Password</FormLabel>
-              <FormPassword id="pass" name="password" className="" />
+              <FormPassword id="pass" name="password" className="w-full" />
               <div className={`${onLogin ? 'scale-0 h-0' : 'scale-1'} overflow-hidden duration-200 ease-in-out`}>
                 <FormLabel className="mt-6">Confirm Password</FormLabel>
-                <FormPassword id="confpass" name="password" className="" />
+                <FormPassword id="confpass" name="password" className="w-full" />
               </div>
               <div className="w-full pt-4 pb-4 overflow-auto">
-                <FormButton className="float-right">{onLogin ? 'Login' : 'Register'}</FormButton>
+                <FormButton className="float-right p-2 mr-5">{onLogin ? 'Login' : 'Register'}</FormButton>
               </div>
             </form>
           </div>
