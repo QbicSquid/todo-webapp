@@ -16,7 +16,7 @@ export const getTask = asyncHandler(async (req, res) => {
 })
 
 export const getTasks = asyncHandler(async (req, res) => {
-  const tasks = await readTasks()
+  const tasks = await readTasks(req.params.id)
   makeResponse({ res, status: 200, message: 'Tasks fetched successfully', data: tasks })
 })
 

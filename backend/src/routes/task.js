@@ -6,7 +6,7 @@ import { newTask, getTask, getTasks, removeTask, setTaskStatus } from '../contro
 
 const taskRouter = express.Router()
 
-taskRouter.get('/', getTasks)
+taskRouter.get('/user/:id', celebrate({ [Segments.PARAMS]: getTaskSchema }), getTasks)
 taskRouter.get('/:id', celebrate({ [Segments.PARAMS]: getTaskSchema }), getTask)
 taskRouter.post('/', celebrate({ [Segments.BODY]: newTaskSchema }), newTask)
 taskRouter.put('/', celebrate({ [Segments.BODY]: setTaskStatusSchema }), setTaskStatus)
