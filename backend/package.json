@@ -4,6 +4,11 @@
   "description": "Back End for the simple todo web application, SimplyDo.",
   "main": "src/app.js",
   "scripts": {
+    "build": "npm run clean && npm run build-babel && npm run copy",
+    "build-babel": "babel -d ./dist ./src -s",
+    "clean": "rm -rf dist && mkdir dist",
+    "copy": "babel src --out-dir ./dist --copy-files",
+    "start": "node dist/app.js",
     "dev": "nodemon --exec babel-node src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
