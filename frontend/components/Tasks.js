@@ -11,6 +11,8 @@ const Tasks = ({ children, ...props }) => {
   useEffect(() => setSession(JSON.parse(localStorage.getItem('session'))), [])
 
   useEffect(() => {
+    if (!localStorage.getItem('session')) Router.push('/')
+
     props.data.forEach((task) => {
       const img = document.getElementById('IMG' + task._id)
       if (!task.done) img.toggleAttribute('hidden')
