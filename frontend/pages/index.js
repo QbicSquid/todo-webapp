@@ -1,10 +1,15 @@
-import Router from "next/router"
-import { useEffect } from "react"
+import Router from 'next/router'
+import { useEffect, useState } from 'react'
 
 const HomePage = () => {
-  useEffect(() => Router.push('/login'), [])
+  const [redirected, setRedirected] = useState(false)
 
-  return <p>redirecting</p>
+  useEffect(() => {
+    if (!redirected) Router.push('/login')
+    setRedirected(true)
+  }, [])
+
+  return <p></p>
 }
 
 export default HomePage
