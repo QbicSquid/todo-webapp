@@ -72,7 +72,7 @@ const Tasks = ({ children, ...props }) => {
   }
 
   return (
-    <div className="container py-4">
+    <div className="py-4">
       <div className="w-11/12 h-full p-2 mx-auto overflow-scroll bg-white rounded-3xl">
         <div className="flex justify-between w-full px-1 pt-2 bg-teal-500 rounded-full">
           <div className="w-80">

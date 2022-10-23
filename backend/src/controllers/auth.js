@@ -16,6 +16,7 @@ export const login = asyncHandler(async (req, res) => {
 })
 
 export const register = asyncHandler(async (req, res) => {
-  await insertUser(req.body)
-  return makeResponse({ res, status: 201, message: 'User registered successfully' })
+  const user = await insertUser(req.body)
+  const token = createToken(user)
+  return makeResponse({ res, status: 201, message: 'User registered successfully', data: { user, access_token: token } })
 })

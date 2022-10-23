@@ -53,6 +53,7 @@ const Login = () => {
     }
 
     const res = await register({ username, password })
+    console.log(res)
 
     lStorage.setItem('session', JSON.stringify(res.data))
     
@@ -65,7 +66,7 @@ const Login = () => {
   }
 
   return (
-    <div className="container pt-32">
+    <div className="pt-32">
       <div className="w-1/2 p-2 mx-auto bg-white rounded-3xl">
         <div className="w-full px-1 pt-2 bg-teal-500 rounded-3xl">
           <img src="logo.svg" alt="logo" className="mx-auto" />

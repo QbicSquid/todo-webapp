@@ -4,7 +4,7 @@ import '../styles/globals.css'
 
 const MyApp = ({ Component, pageProps }) => {
   return (
-    <div className='container'>
+    <div>
       <ToastContainer />
       <Component {...pageProps} />
     </div>

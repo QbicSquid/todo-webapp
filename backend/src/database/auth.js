@@ -4,7 +4,9 @@ import User from '../models/user'
 
 export const insertUser = async (user) => {
   const newUser = new User(user)
-  await newUser.save()
+  const createdUser = await newUser.save()
+  delete createdUser.password
+  return createdUser
 }
 
 export const getUser = async ({ username, fetchPassword=false }) => {
