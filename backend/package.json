@@ -4,6 +4,8 @@
   "description": "Back End for the simple todo web application, SimplyDo.",
   "main": "src/app.js",
   "scripts": {
+    "build": "babel -d ./dist ./src -s",
+    "start": "node dist/app.js",
     "dev": "nodemon --exec babel-node src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,6 +20,7 @@
     "mongoose": "^6.6.5"
   },
   "devDependencies": {
+    "@babel/cli": "^7.19.3",
     "@babel/core": "^7.19.3",
     "@babel/node": "^7.19.1",
     "@babel/preset-env": "^7.19.4",
